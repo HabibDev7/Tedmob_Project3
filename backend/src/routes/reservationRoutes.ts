@@ -1,12 +1,11 @@
 import { Router, Request, Response } from 'express';
-import { AppDataSource } from '../database'; // Import AppDataSource
+import { AppDataSource } from '../database';
 import { Reservation } from '../entities/Reservation';
 
 const router = Router();
 
-// Create a reservation
 router.post('/reservations', async (req: Request, res: Response) => {
-  const reservationRepo = AppDataSource.getRepository(Reservation); // Use AppDataSource here
+  const reservationRepo = AppDataSource.getRepository(Reservation);
   try {
     const reservation = reservationRepo.create(req.body);
     await reservationRepo.save(reservation);
@@ -21,9 +20,8 @@ router.post('/reservations', async (req: Request, res: Response) => {
   }
 });
 
-// Get all reservations
 router.get('/reservations', async (req: Request, res: Response) => {
-  const reservationRepo = AppDataSource.getRepository(Reservation); // Use AppDataSource here
+  const reservationRepo = AppDataSource.getRepository(Reservation);
   try {
     const reservations = await reservationRepo.find();
     res.status(200).json(reservations);

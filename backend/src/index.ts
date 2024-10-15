@@ -1,24 +1,20 @@
 import express from 'express';
-import { connectDatabase } from './database'; // Adjust the import according to your project structure
-import reservationRoutes from './routes/reservationRoutes'; // Ensure the path is correct
+import { connectDatabase } from './database';
+import reservationRoutes from './routes/reservationRoutes';
 import cors from 'cors';
 
 const app = express();
-const PORT = process.env.PORT || 5000; // Set to port 5000
+const PORT = process.env.PORT || 5000;
 
-// Middleware to parse JSON bodies
 app.use(cors());
 app.use(express.json());
 
-// Define the root route
 app.get('/', (req, res) => {
     res.send('Welcome to the Hotel Reservation API!');
 });
 
-// Use reservation routes under a base path, e.g., /api
-app.use('/api', reservationRoutes); // Adjust '/api' to your preference
+app.use('/api', reservationRoutes);
 
-// Connect to the database and start the server
 connectDatabase()
     .then(() => {
         app.listen(PORT, () => {

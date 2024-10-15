@@ -43,7 +43,7 @@ export class Reservation {
   @IsNumber()
   adults: number;
 
-  @Column({ nullable: true }) // Ensure nullable is correctly defined
+  @Column({ nullable: true })
   @IsOptional()
   @IsNumber()
   children?: number;
@@ -62,19 +62,19 @@ export class Reservation {
     roomType: string,
     adults: number,
     price: number,
-    phone?: string, // Optional parameter moved to the end
-    children?: number // Optional parameter moved to the end
+    phone?: string,
+    children?: number
   ) {
     this.firstName = firstName;
     this.lastName = lastName;
     this.dob = dob;
     this.email = email;
-    this.phone = phone; // This can be undefined
+    this.phone = phone;
     this.arrivalDate = arrivalDate;
     this.departureDate = departureDate;
     this.roomType = roomType;
     this.adults = adults;
-    this.children = children; // This can also be undefined
+    this.children = children;
     this.price = price;
   }  
 }
