@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { toggleReserve } from './actions/uiActions';
+import axios from 'axios';
 
 const Reserve = () => {
   const dispatch = useDispatch();
@@ -101,9 +102,36 @@ const Reserve = () => {
     }
   };
 
-  const handleConfirm = () => {
-    setShowThankYou(true);
-  };
+  const handleConfirm = async () => {
+    const bookingData = {
+      firstName,
+      lastName,
+      dob,
+      email,
+      phone,
+      arrivalDate,
+      departureDate,
+      roomType,
+      adults,
+      children,
+      price,
+    };
+  
+    try {
+      const response = await axios.post('http://localhost:5000/api/reservations', bookingData);
+      if (response.status === 201) {
+        // Booking successful
+        setShowThankYou(true);
+      } else {
+        // Handle unexpected responses
+        console.error('Unexpected response:', response);
+      }
+    } catch (error) {
+      // Handle errors from the API
+      console.error('Error creating booking:', error);
+      alert('There was an error processing your booking. Please try again later.');
+    }
+  };  
 
   const handleClear = () => {
     setFirstName('');
